@@ -25,7 +25,6 @@ function howManyMovies(moviesArray) {
         const isMovieDrama = movie.genre.indexOf("Drama") >= 0;
 
         return moviesBySteven && isMovieDrama;
-
     });
     
     return dramaMoviesBySteven.length;
@@ -44,13 +43,13 @@ function scoresAverage(moviesArray) {
         if (movie.score)
         return accumulator + movie.score;
     
-       else{
+        else{
         return accumulator;
        }
     }, 0);
 
     const averageScore = sumOfScore / moviesArray.length;
-    return parseFloat(averageScore.toFixed(2));
+    return +(averageScore.toFixed(2));
 }
 
 
@@ -69,12 +68,54 @@ function dramaMoviesScore(moviesArray) {
 
 
 // Iteration 5: Ordering by year - Order by year, ascending (in growing order)
-function orderByYear(moviesArray) {}
+function orderByYear(moviesArray) {
+
+    const deepCopyArr = JSON.parse(JSON.stringify(moviesArray))
+    const sorted = deepCopyArr.sort((a, b) => {
+        if (a.year > b.year) {
+            return 1;
+        }
+        else if (a.year < b.year) {
+            return -1;
+        }
+        else {
+            if (a.title > b.title) {
+                return 1;
+            }
+            else if (a.title < b.title) {
+                return -1;
+            }
+            else {
+                0;
+            }
+        }
+    });
+
+    return sorted;
+}
 
 
 
 // Iteration 6: Alphabetic Order - Order by title and print the first 20 titles
-function orderAlphabetically(moviesArray) {}
+function orderAlphabetically(moviesArray) {
+
+    const copyArr = JSON.parse(JSON.stringify(moviesArray));
+    const sortedAlpha = copyArr.sort((a, b) => {
+        if (a.title > b.title){
+            return 1;
+        }
+        else if (a.title < b.title){
+            return -1;
+        }
+        else {
+            return 0;
+        }
+    })
+
+    const titlesArr = sortedAlpha.map((movie) => movie.title)
+    const first20 = titlesArr.slice(0, 20)
+    return first20;
+}
 
 // BONUS - Iteration 7: Time Format - Turn duration of the movies from hours to minutes
 function turnHoursToMinutes(moviesArray) {}
